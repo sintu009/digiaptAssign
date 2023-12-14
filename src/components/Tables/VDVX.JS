@@ -96,7 +96,6 @@ const ReusableTable = ({ columns, data }) => {
     };
 
     const handleSearch = () => {
-        // Perform search logic here
         console.log('Performing search for:', searchTerm);
         // Implement actual search logic here based on your requirements
     };
@@ -146,16 +145,6 @@ const ReusableTable = ({ columns, data }) => {
 
     return (
         <div className="mt-4">
-            <div className="text-center mb-3" style={{ width: "30%", margin: "auto" }}>
-                <Form.Control
-                    size="sm"
-                    type="text"
-                    placeholder="Global Search"
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="mb-2"
-                />
-
-            </div>
             <div className="table-responsive">
                 <Table striped bordered hover responsive>
                     <thead className="thead-dark">
@@ -166,26 +155,23 @@ const ReusableTable = ({ columns, data }) => {
                                         key={columnKey}
                                         style={{ width: columnWidths[columnKey] || columns.find(col => col.key === columnKey).width }}
                                     >
-
-                                        <div className="d-flex justify-content-between align-items-center " >
+                                        <div className="d-flex justify-content-between align-items-center">
                                             <div className="d-flex">
-                                                <div className="d-flex">
-                                                    <Form.Control
-                                                        size="sm"
-                                                        type="text"
-                                                        placeholder={`Search ${columns.find(col => col.key === columnKey).label}`}
-                                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                                        className="mb-2"
-                                                    />
-                                                    <Button
-                                                        size="sm"
-                                                        variant="primary"
-                                                        className="ml-2"
-                                                        onClick={handleSearch}
-                                                    >
-                                                        Search
-                                                    </Button>
-                                                </div>
+                                                <Form.Control
+                                                    size="sm"
+                                                    type="text"
+                                                    placeholder={`Search ${columns.find(col => col.key === columnKey).label}`}
+                                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                                    className="mb-2"
+                                                />
+                                                <Button
+                                                    size="sm"
+                                                    variant="primary"
+                                                    className="ml-2"
+                                                    onClick={handleSearch}
+                                                >
+                                                    Search
+                                                </Button>
                                             </div>
                                             <div className="d-flex">
                                                 {index > 0 && (
@@ -208,6 +194,30 @@ const ReusableTable = ({ columns, data }) => {
                                                         Move Right
                                                     </Button>
                                                 )}
+                                            </div>
+                                        </div>
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <span>{columns.find(col => col.key === columnKey).label}</span>
+                                            <div className="d-flex">
+                                                <Button
+                                                    size="sm"
+                                                    variant={hiddenColumns[columnKey] ? 'success' : 'warning'}
+                                                    onClick={() => toggleColumnVisibility(columnKey)}
+                                                >
+                                                    {hiddenColumns[columnKey] ? 'Show' : 'Hide'}
+                                                </Button>
+                                                <Button
+                                                    size="sm"
+                                                    variant="primary"
+                                                    onClick={() => handleSort(columnKey)}
+                                                    className="ml-2"
+                                                >
+                                                    Sort
+                                                </Button>
+                                                <div
+                                                    className="resize-handle"
+                                                    onMouseDown={(e) => handleMouseDown(columnKey, e)}
+                                                />
                                             </div>
                                         </div>
                                     </th>
