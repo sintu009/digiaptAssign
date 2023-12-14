@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import Tables from './components/Tables/Tables';
 import { tableColumns, tableData } from './Data/Data';

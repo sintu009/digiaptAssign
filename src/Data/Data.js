@@ -1,4 +1,3 @@
-// src/data/data.js
 export const tableData = [
     { id: 1, name: 'John Doe', age: 25, city: 'New York' },
     { id: 2, name: 'Jane Smith', age: 30, city: 'San Francisco' },
@@ -40,7 +39,6 @@ export const tableData = [
     { id: 38, name: 'Connor Mitchell', age: 23, city: 'Hartford' },
     { id: 39, name: 'Leah Richardson', age: 32, city: 'Baltimore' },
     { id: 40, name: 'Jordan White', age: 26, city: 'Tucson' }
-    // Add more data...
 ];
 
 export const tableColumns = [
@@ -48,5 +46,4 @@ export const tableColumns = [
     { key: 'name', label: 'Name' },
     { key: 'age', label: 'Age' },
     { key: 'city', label: 'City' },
-    // Add more columns...
 ];
