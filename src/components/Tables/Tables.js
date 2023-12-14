@@ -1,6 +1,7 @@
 // src/components/ReusableTable/ReusableTable.js
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Form, Pagination } from 'react-bootstrap';
+import { FaSearch, FaArrowLeft, FaArrowRight, FaEye, FaEyeSlash, FaSort } from 'react-icons/fa';
 import './Table.css';
 
 const ITEMS_PER_PAGE = 10;
@@ -96,9 +97,7 @@ const ReusableTable = ({ columns, data }) => {
     };
 
     const handleSearch = () => {
-        // Perform search logic here
         console.log('Performing search for:', searchTerm);
-        // Implement actual search logic here based on your requirements
     };
 
     const toggleColumnVisibility = (columnKey) => {
@@ -144,9 +143,17 @@ const ReusableTable = ({ columns, data }) => {
         }
     };
 
+    const renderSortIcon = (columnKey) => {
+        if (sortConfig.key === columnKey) {
+            return sortConfig.direction === 'asc' ? <FaSort /> : <FaSort style={{ transform: 'rotate(180deg)' }} />;
+        }
+        return null;
+    };
+
     return (
         <div className="mt-4">
             <div className="text-center mb-3" style={{ width: "30%", margin: "auto" }}>
+                {/* Global search input field */}
                 <Form.Control
                     size="sm"
                     type="text"
@@ -154,7 +161,6 @@ const ReusableTable = ({ columns, data }) => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="mb-2"
                 />
-
             </div>
             <div className="table-responsive">
                 <Table striped bordered hover responsive>
@@ -166,8 +172,7 @@ const ReusableTable = ({ columns, data }) => {
                                         key={columnKey}
                                         style={{ width: columnWidths[columnKey] || columns.find(col => col.key === columnKey).width }}
                                     >
-
-                                        <div className="d-flex justify-content-between align-items-center " >
+                                        <div className="d-flex justify-content-between align-items-center ">
                                             <div className="d-flex">
                                                 <div className="d-flex">
                                                     <Form.Control
@@ -183,7 +188,7 @@ const ReusableTable = ({ columns, data }) => {
                                                         className="ml-2"
                                                         onClick={handleSearch}
                                                     >
-                                                        Search
+                                                        <FaSearch />
                                                     </Button>
                                                 </div>
                                             </div>
@@ -195,7 +200,7 @@ const ReusableTable = ({ columns, data }) => {
                                                         className="ml-2"
                                                         onClick={() => moveColumnLeft(index)}
                                                     >
-                                                        Move Left
+                                                        <FaArrowLeft />
                                                     </Button>
                                                 )}
                                                 {index < columns.length - 1 && (
@@ -205,9 +210,29 @@ const ReusableTable = ({ columns, data }) => {
                                                         className="ml-2"
                                                         onClick={() => moveColumnRight(index)}
                                                     >
-                                                        Move Right
+                                                        <FaArrowRight />
                                                     </Button>
                                                 )}
+                                                <Button
+                                                    size="sm"
+                                                    variant={hiddenColumns[columnKey] ? 'success' : 'warning'}
+                                                    className="ml-2"
+                                                    onClick={() => toggleColumnVisibility(columnKey)}
+                                                >
+                                                    {hiddenColumns[columnKey] ? <FaEye /> : <FaEyeSlash />}
+                                                </Button>
+                                                <Button
+                                                    size="sm"
+                                                    variant="primary"
+                                                    onClick={() => handleSort(columnKey)}
+                                                    className="ml-2"
+                                                >
+                                                    <FaSort /> {renderSortIcon(columnKey)}
+                                                </Button>
+                                                <div
+                                                    className="resize-handle"
+                                                    onMouseDown={(e) => handleMouseDown(columnKey, e)}
+                                                />
                                             </div>
                                         </div>
                                     </th>

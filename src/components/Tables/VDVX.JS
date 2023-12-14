@@ -23,7 +23,9 @@ const ReusableTable = ({ columns, data }) => {
     const handleMouseMove = (e) => {
         if (resizingColumn !== null) {
             const deltaX = e.clientX - resizeStartX;
-            const newWidth = (columnWidths[resizingColumn] || columns.find(col => col.key === resizingColumn).width) + deltaX;
+            const newWidth =
+                (columnWidths[resizingColumn] ||
+                    columns.find((col) => col.key === resizingColumn).width) + deltaX;
 
             if (newWidth > 50) {
                 setColumnWidths((prevWidths) => ({
@@ -143,6 +145,13 @@ const ReusableTable = ({ columns, data }) => {
         }
     };
 
+    const renderSortIcon = (columnKey) => {
+        if (sortConfig.key === columnKey) {
+            return sortConfig.direction === 'asc' ? '↑' : '↓';
+        }
+        return null;
+    };
+
     return (
         <div className="mt-4">
             <div className="table-responsive">
@@ -164,36 +173,31 @@ const ReusableTable = ({ columns, data }) => {
                                                     onChange={(e) => setSearchTerm(e.target.value)}
                                                     className="mb-2"
                                                 />
+                                            </div>
+                                            <div className="d-flex">
                                                 <Button
                                                     size="sm"
                                                     variant="primary"
-                                                    className="ml-2"
-                                                    onClick={handleSearch}
+                                                    onClick={() => handleSearch}
                                                 >
                                                     Search
                                                 </Button>
-                                            </div>
-                                            <div className="d-flex">
-                                                {index > 0 && (
-                                                    <Button
-                                                        size="sm"
-                                                        variant="success"
-                                                        className="ml-2"
-                                                        onClick={() => moveColumnLeft(index)}
-                                                    >
-                                                        Move Left
-                                                    </Button>
-                                                )}
-                                                {index < columns.length - 1 && (
-                                                    <Button
-                                                        size="sm"
-                                                        variant="info"
-                                                        className="ml-2"
-                                                        onClick={() => moveColumnRight(index)}
-                                                    >
-                                                        Move Right
-                                                    </Button>
-                                                )}
+                                                <Button
+                                                    size="sm"
+                                                    variant="success"
+                                                    className="ml-2"
+                                                    onClick={() => moveColumnLeft(index)}
+                                                >
+                                                    Move Left
+                                                </Button>
+                                                <Button
+                                                    size="sm"
+                                                    variant="info"
+                                                    className="ml-2"
+                                                    onClick={() => moveColumnRight(index)}
+                                                >
+                                                    Move Right
+                                                </Button>
                                             </div>
                                         </div>
                                         <div className="d-flex justify-content-between align-items-center">
@@ -212,7 +216,7 @@ const ReusableTable = ({ columns, data }) => {
                                                     onClick={() => handleSort(columnKey)}
                                                     className="ml-2"
                                                 >
-                                                    Sort
+                                                    Sort {renderSortIcon(columnKey)}
                                                 </Button>
                                                 <div
                                                     className="resize-handle"
