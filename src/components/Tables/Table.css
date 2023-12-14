@@ -1,0 +1,36 @@
+/* Add this CSS code to your stylesheets or style component */
+
+.resize-handle {
+    width: 8px;
+    height: 100%;
+    cursor: ew-resize;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ddd;
+    /* Adjust the color as needed */
+    z-index: 1;
+    /* Ensure the handle is on top of the header content */
+}
+
+.table th {
+    position: relative;
+}
+
+.table th:hover .resize-handle {
+    background-color: #ccc;
+    /* Adjust the hover color as needed */
+}
+
+.table th span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 8px);
+    /* Adjust to leave space for the resize handle */
+}
+
+.table th:hover span {
+    overflow: visible;
+}
