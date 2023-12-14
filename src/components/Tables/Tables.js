@@ -1,11 +1,10 @@
-// src/components/ReusableTable/ReusableTable.js
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Form, Pagination } from 'react-bootstrap';
 import './Table.css';
 
 const ITEMS_PER_PAGE = 10;
 
-const ReusableTable = ({ columns, data }) => {
+const Tables = ({ columns, data }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const [searchTerm, setSearchTerm] = useState('');
@@ -97,7 +96,6 @@ const ReusableTable = ({ columns, data }) => {
 
     const handleSearch = () => {
         console.log('Performing search for:', searchTerm);
-        // Implement actual search logic here based on your requirements
     };
 
     const toggleColumnVisibility = (columnKey) => {
@@ -262,4 +260,4 @@ const ReusableTable = ({ columns, data }) => {
     );
 };
 
-export default ReusableTable;
+export default Tables;
